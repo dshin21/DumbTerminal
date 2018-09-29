@@ -35,12 +35,12 @@ void Application::onClickConnect()
 
 void Application::onClickDisconnect()
 {
-    sessionLayer->disconnectSerialPort();
+    sessionLayer->disconnectSerialPort(serialPort);
 }
 
 void Application::onClickModify()
 {
-    ConfigDialog configDialog(nullptr, physicalLayer);
+    ConfigDialog configDialog(nullptr, physicalLayer, sessionLayer, serialPort);
     configDialog.setModal(true);
     configDialog.exec();
 }

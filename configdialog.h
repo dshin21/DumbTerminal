@@ -16,7 +16,7 @@ class ConfigDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ConfigDialog(QWidget *parent = nullptr, Physical *physicalLayer = nullptr, Session *sessionLayer = nullptr);
+    explicit ConfigDialog(QWidget *parent = nullptr, Physical *physicalLayer = nullptr, Session *sessionLayer = nullptr, QSerialPort *serialPort= nullptr);
     ~ConfigDialog();
 
 private slots:
@@ -28,6 +28,7 @@ private:
 
     Physical *physicalLayer;
     Session *sessionLayer;
+    QSerialPort *serialPort;
 
 };
 

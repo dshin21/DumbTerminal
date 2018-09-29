@@ -12,8 +12,8 @@ public:
     explicit Session(QObject *parent = nullptr, Physical *physicalLayer = nullptr);
 
     void connectSerialPort(QSerialPort *serialPort);
-    void disconnectSerialPort();
-    void modifySerialPort(QString baudRate, QString dataBits, QString parity, QString stopBits, QString portName);
+    void disconnectSerialPort(QSerialPort *serialPort);
+    void modifySerialPort(QString baudRate, QString dataBits, QString parity, QString stopBits, QString portName, QSerialPort *serialPort);
 
 public slots:
 

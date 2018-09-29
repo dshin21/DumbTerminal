@@ -10,7 +10,6 @@ class Physical : public QObject
     Q_OBJECT
 public:
     explicit Physical(QObject *parent = nullptr);
-    QSerialPort *serialPort;
 
     QString baudRate;
     QString dataBits;
@@ -21,9 +20,18 @@ public:
 
 public slots:
     void initializeSerialPort(QSerialPort *serialPort);
-    void deInitializeSerialPort();
-    void modifySerialPort(const QString &baudRate, const QString &dataBits, const QString &parity, const QString &stopBits, const QString &portName);
+
+    void deInitializeSerialPort(QSerialPort *serialPort);
+
+    void modifySerialPort(const QString &baudRate, const QString &dataBits, const QString &parity, const QString &stopBits, const QString &portName, QSerialPort *serialPort);
+    void modifySerialPortBaudRate(const QString &baudRate, QSerialPort *serialPort);
+    void modifySerialPortDataBits(const QString &dataBits, QSerialPort *serialPort);
+    void modifySerialPortParity(const QString &parity, QSerialPort *serialPort);
+    void modifySerialPortStopBits(const QString &stopBits, QSerialPort *serialPort);
+    void modifySerialPortPortName(const QString &portName, QSerialPort *serialPort);
+
     void readFromSerialPort();
+
     void writeToSerialPort(const QByteArray &data);
 
 
