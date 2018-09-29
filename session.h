@@ -9,15 +9,15 @@ class Session : public QObject
 {
     Q_OBJECT
 public:
-    explicit Session(QObject *parent = nullptr);
+    explicit Session(QObject *parent = nullptr, Physical *physicalLayer = nullptr);
 
     void connectSerialPort(QSerialPort *serialPort);
-    void disconnectSerialPort(QSerialPort *serialPort);
-//    void modifySerialPortSettings(QSerialPort *serialPort);
+    void disconnectSerialPort();
+    void modifySerialPort(QString baudRate, QString dataBits, QString parity, QString stopBits, QString portName);
 
 public slots:
 
 
 private:
-    Physical *physical;
+    Physical *physicalLayer;
 };

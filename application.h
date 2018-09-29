@@ -22,7 +22,8 @@ public:
 
 private:
     Ui::Application *ui;
-    Session *session;
+    Session *sessionLayer;
+    Physical *physicalLayer;
     QSerialPort *serialPort;
 
     void initializeUIConnections();

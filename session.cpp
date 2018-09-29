@@ -1,46 +1,24 @@
 #include "session.h"
-//TODO: delete all debugs
-#include <QtDebug>
 
-Session::Session(QObject *parent) : QObject(parent)
+
+Session::Session(QObject *parent, Physical *physicalLayer)
+    : QObject(parent),
+      physicalLayer(physicalLayer)
 {
 
 }
 
 void Session::connectSerialPort(QSerialPort *serialPort)
 {
-    if(serialPort && !serialPort->isOpen())
-    {
-        serialPort->open(QIODevice::ReadWrite);
-
-        if(serialPort->isOpen())
-        {
-            serialPort->setPortName("COM1");
-            serialPort->setBaudRate(QSerialPort::Baud2400);
-            serialPort->setDataBits(QSerialPort::Data8);
-            serialPort->setParity(QSerialPort::NoParity);
-            serialPort->setStopBits(QSerialPort::OneStop);
-            serialPort->setFlowControl(QSerialPort::HardwareControl);
-            qDebug() << "Opened";
-        }
-        else
-        {
-            qDebug() << "Error";
-
-        }
-    }
+    physicalLayer->initializeSerialPort(serialPort);
 }
 
-void Session::disconnectSerialPort(QSerialPort *serialPort)
+void Session::disconnectSerialPort()
 {
-    if(serialPort->isOpen())    {
-        serialPort->flush();
-        serialPort->close();
-        qDebug() << "Closed";
-    }
+    physicalLayer->deInitializeSerialPort();
 }
 
-//void Session::modifySerialPortSettings(QSerialPort *serialPort)
-//{
-
-//}
+void Session::modifySerialPort(QString baudRate, QString dataBits, QString parity, QString stopBits, QString portName)
+{
+    physicalLayer->modifySerialPort(baudRate, dataBits, parity, stopBits, portName);
+}

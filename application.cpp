@@ -1,15 +1,20 @@
 #include "application.h"
 #include "ui_application.h"
+#include "configdialog.h"
 
 Application::Application(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Application),
-    serialPort(new QSerialPort)
+    serialPort(new QSerialPort("COM1", this))
 {
     ui->setupUi(this);
+    setCentralWidget(ui->console);
     initializeUIConnections();
 
+    physicalLayer = new Physical;
+    sessionLayer = new Session;
 }
+
 
 Application::~Application()
 {
@@ -18,22 +23,26 @@ Application::~Application()
 
 void Application::initializeUIConnections()
 {
-    connect(ui->actionConnect, &QAction::triggered, this, &Application::onClickConnect);
+    connect(ui->actionConnect, &QAction::triggered, this, &Application::onClickConnect);        //Connect Menu
+    connect(ui->actionDisconnect, &QAction::triggered, this, &Application::onClickDisconnect);  //Disconnect Menu
+    connect(ui->actionModify_Settings, &QAction::triggered, this, &Application::onClickModify); //Modify Settings Menu
 }
 
 void Application::onClickConnect()
 {
-    session->connectSerialPort(serialPort);
+    sessionLayer->connectSerialPort(serialPort);
 }
 
 void Application::onClickDisconnect()
 {
-    session->disconnectSerialPort(serialPort);
+    sessionLayer->disconnectSerialPort();
 }
 
 void Application::onClickModify()
 {
-//    session->modifySerialPortSettings(serialPort);
+    ConfigDialog configDialog(nullptr, physicalLayer);
+    configDialog.setModal(true);
+    configDialog.exec();
 }
 
 

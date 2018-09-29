@@ -26,15 +26,18 @@ SOURCES += \
         main.cpp \
         application.cpp \
     physical.cpp \
-    session.cpp
+    session.cpp \
+    configdialog.cpp
 
 HEADERS += \
         application.h \
     physical.h \
-    session.h
+    session.h \
+    configdialog.h
 
 FORMS += \
-        application.ui
+        application.ui \
+    configdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
