@@ -1,21 +1,23 @@
-#ifndef SESSION_H
-#define SESSION_H
+#pragma once
 
-#include "application.h"
-
+#include "physical.h"
 #include <QObject>
+
+
 
 class Session : public QObject
 {
     Q_OBJECT
 public:
     explicit Session(QObject *parent = nullptr);
-    Session(Application applicationLayer);
+
+    void connectSerialPort(QSerialPort *serialPort);
+    void disconnectSerialPort(QSerialPort *serialPort);
+//    void modifySerialPortSettings(QSerialPort *serialPort);
 
 public slots:
-    void connectSerialPort();
-    void disconnectSerialPort();
-    void modifySerialPortSettings();
-};
 
-#endif // SESSION_H
+
+private:
+    Physical *physical;
+};

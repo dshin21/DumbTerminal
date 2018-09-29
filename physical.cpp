@@ -5,7 +5,17 @@ Physical::Physical(QObject *parent) : QObject(parent)
 
 }
 
-void Physical::connectSerialPort()
+void Physical::initializePort()
+{
+
+}
+
+void Physical::readFromSerialPort()
+{
+
+}
+
+void Physical::writeToSerialPort(const QByteArray &data)
 {
 
 }

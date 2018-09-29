@@ -1,7 +1,12 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#pragma once
 
 #include <QMainWindow>
+#include <session.h>
+
+
+
+
+class Session;
 
 namespace Ui {
 class Application;
@@ -17,9 +22,18 @@ public:
 
 private:
     Ui::Application *ui;
+    Session *session;
+    QSerialPort *serialPort;
+
+    void initializeUIConnections();
+
+private slots:
+    void onClickConnect();
+    void onClickDisconnect();
+    void onClickModify();
+
+
 
 private slots:
 
 };
-
-#endif // APPLICATION_H

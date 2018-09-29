@@ -1,18 +1,15 @@
-#ifndef PHYSICAL_H
-#define PHYSICAL_H
+#pragma once
 
-#include "session.h"
-
+#include "physical.h"
 #include <QObject>
 
-#include <QtSerialPort/QSerialPort>
+#include <QSerialPort>
 
 class Physical : public QObject
 {
     Q_OBJECT
 public:
     explicit Physical(QObject *parent = nullptr);
-    Physical(Session sessionLayer);
 
     struct{
         QString baudRate;
@@ -25,11 +22,9 @@ public:
     public slots:
     void initializePort();
     void readFromSerialPort();
-    void writeFromSerialPort(const QByteArray &data);
+    void writeToSerialPort(const QByteArray &data);
 
 
 private:
-    QSerialPort *serialPort;
-};
 
-#endif // PHYSICAL_H
+};
