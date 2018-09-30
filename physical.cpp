@@ -124,6 +124,7 @@ QByteArray Physical::readFromSerialPort(QSerialPort *serialPort)
 
 void Physical::writeToSerialPort(const QByteArray &data, QSerialPort *serialPort)
 {
+
     serialPort->write(data);
     qDebug() << "wrote";
 }

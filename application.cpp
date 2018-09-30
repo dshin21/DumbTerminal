@@ -27,7 +27,7 @@ void Application::initializeUIConnections()
     connect(ui->actionDisconnect, &QAction::triggered, this, &Application::onClickDisconnect);  //Disconnect Menu
     connect(ui->actionModify_Settings, &QAction::triggered, this, &Application::onClickModify); //Modify Settings Menu
     connect(serialPort, &QSerialPort::readyRead, this, &Application::readFromSerialPort);
-//    connect(ui->console, &Application::getData, this, &Application::writeToSerialPort);
+
 }
 
 void Application::onClickConnect()
@@ -48,7 +48,9 @@ void Application::onClickModify()
 }
 
 void Application::readFromSerialPort(){
-    ui->console->setText(QString(sessionLayer->readFromSerialPort(serialPort)));
+    QString previousText = ui->console->text().append(sessionLayer->readFromSerialPort(serialPort));
+    ui->console->setText(QString(previousText));
+
 }
 
 void Application::writeToSerialPort(const QByteArray &data)
@@ -68,7 +70,6 @@ void Application::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Down:
         break;
     default:
-            keyPressEvent(e);
         emit getData(e->text().toLocal8Bit());
     }
 }
@@ -77,6 +78,6 @@ void Application::keyPressEvent(QKeyEvent *e)
 
 void Application::on_console_textChanged(const QString &arg1)
 {
-//    qDebug() << arg1;
-    serialPort->write(arg1.toLocal8Bit());
+    QString data = arg1.at(arg1.size()-1);
+    serialPort->write(data.toLocal8Bit());
 }

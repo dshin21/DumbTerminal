@@ -27,8 +27,3 @@ QByteArray Session::readFromSerialPort(QSerialPort *serialPort)
 {
     return physicalLayer->readFromSerialPort(serialPort);
 }
-
-//void Session::writeToSerialPort(const QByteArray &data, QSerialPort *serialPort)
-//{
-//    physicalLayer->writeToSerialPort(data, serialPort);
-//}
