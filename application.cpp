@@ -8,7 +8,7 @@ Application::Application(QWidget *parent) :
     serialPort(new QSerialPort("COM1", this))
 {
     ui->setupUi(this);
-    setCentralWidget(ui->console);
+//    setCentralWidget(ui->console);
     initializeUIConnections();
 
     sessionLayer = new Session;
@@ -48,14 +48,15 @@ void Application::onClickModify()
 }
 
 void Application::readFromSerialPort(){
-    QString previousText = ui->console->text().append(sessionLayer->readFromSerialPort(serialPort));
-    ui->console->setText(QString(previousText));
+    QString previousText = ui->incomingConsole->text().append(sessionLayer->readFromSerialPort(serialPort));
+
+    ui->incomingConsole->setText(QString(previousText));
 
 }
 
 void Application::writeToSerialPort(const QByteArray &data)
 {
-    serialPort->write(data);
+    serialPort->write(data); 
     qDebug() << "wrote";
 }
 
