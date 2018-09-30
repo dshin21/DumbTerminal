@@ -2,7 +2,8 @@
 
 #include <QMainWindow>
 #include <session.h>
-
+#include <physical.h>
+#include <QDebug>
 
 
 
@@ -20,6 +21,11 @@ public:
     explicit Application(QWidget *parent = nullptr);
     ~Application();
 
+    void keyPressEvent(QKeyEvent *e);
+
+signals:
+    void getData(const QByteArray &data);
+
 private:
     Ui::Application *ui;
     Session *sessionLayer;
@@ -32,9 +38,12 @@ private slots:
     void onClickConnect();
     void onClickDisconnect();
     void onClickModify();
+    void readFromSerialPort();
+    void writeToSerialPort(const QByteArray &data);
 
 
 
 private slots:
 
+    void on_console_textChanged(const QString &arg1);
 };

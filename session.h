@@ -1,7 +1,7 @@
 #pragma once
 
-#include "physical.h"
 #include <QObject>
+#include "physical.h"
 
 
 
@@ -14,6 +14,9 @@ public:
     void connectSerialPort(QSerialPort *serialPort);
     void disconnectSerialPort(QSerialPort *serialPort);
     void modifySerialPort(QString baudRate, QString dataBits, QString parity, QString stopBits, QString portName, QSerialPort *serialPort);
+    QByteArray readFromSerialPort(QSerialPort *serialPort);
+//    void writeToSerialPort(const QByteArray &data, QSerialPort *serialPort);
+
 
 public slots:
 

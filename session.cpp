@@ -22,3 +22,13 @@ void Session::modifySerialPort(QString baudRate, QString dataBits, QString parit
 {
     physicalLayer->modifySerialPort(baudRate, dataBits, parity, stopBits, portName, serialPort);
 }
+
+QByteArray Session::readFromSerialPort(QSerialPort *serialPort)
+{
+    return physicalLayer->readFromSerialPort(serialPort);
+}
+
+//void Session::writeToSerialPort(const QByteArray &data, QSerialPort *serialPort)
+//{
+//    physicalLayer->writeToSerialPort(data, serialPort);
+//}

@@ -117,12 +117,16 @@ void Physical::modifySerialPortPortName(const QString &portName, QSerialPort *se
     qDebug() << serialPort->portName();
 }
 
-void Physical::readFromSerialPort()
+QByteArray Physical::readFromSerialPort(QSerialPort *serialPort)
 {
-
+    return serialPort->readAll();
 }
 
-void Physical::writeToSerialPort(const QByteArray &data)
+void Physical::writeToSerialPort(const QByteArray &data, QSerialPort *serialPort)
 {
-
+    serialPort->write(data);
+    qDebug() << "wrote";
 }
+
+
+

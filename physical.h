@@ -3,7 +3,8 @@
 #include "physical.h"
 #include <QObject>
 
-#include <QSerialPort>
+#include <QKeyEvent>
+#include <QtSerialPort>
 
 class Physical : public QObject
 {
@@ -30,9 +31,9 @@ public slots:
     void modifySerialPortStopBits(const QString &stopBits, QSerialPort *serialPort);
     void modifySerialPortPortName(const QString &portName, QSerialPort *serialPort);
 
-    void readFromSerialPort();
+    QByteArray readFromSerialPort(QSerialPort *serialPort);
 
-    void writeToSerialPort(const QByteArray &data);
+    void writeToSerialPort(const QByteArray &data, QSerialPort *serialPort);
 
 
 private:

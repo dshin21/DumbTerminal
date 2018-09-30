@@ -27,13 +27,15 @@ SOURCES += \
         application.cpp \
     physical.cpp \
     session.cpp \
-    configdialog.cpp
+    configdialog.cpp \
+
 
 HEADERS += \
         application.h \
     physical.h \
     session.h \
-    configdialog.h
+    configdialog.h \
+
 
 FORMS += \
         application.ui \
