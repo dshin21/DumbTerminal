@@ -1,11 +1,11 @@
-#include "application.h"
+#include "session.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QCoreApplication::addLibraryPath("./");
     QApplication a(argc, argv);
-    Application w;
+    Session w;
     w.show();
 
     return a.exec();

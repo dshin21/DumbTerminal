@@ -24,15 +24,15 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        application.cpp \
     physical.cpp \
     configdialog.cpp \
+    session.cpp
 
 
 HEADERS += \
-        application.h \
     physical.h \
     configdialog.h \
+    session.h
 
 
 FORMS += \

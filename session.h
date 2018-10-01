@@ -11,13 +11,13 @@ namespace Ui
 class Application;
 }
 
-class Application : public QMainWindow
+class Session : public QMainWindow
 {
     Q_OBJECT
 
   public:
-    explicit Application(QWidget *parent = nullptr);
-    ~Application();
+    explicit Session(QWidget *parent = nullptr);
+    ~Session();
 
     void keyPressEvent(QKeyEvent *e);
 
