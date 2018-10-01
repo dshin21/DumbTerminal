@@ -1,7 +1,7 @@
 /*------------------------------------------------------------------------------------------------------------------
--- SOURCE FILE: physical.cpp -
+-- SOURCE FILE: physical.cpp - An application that provides essential functions dealing with the serial port.
 --
--- PROGRAM: console
+-- PROGRAM: DumbTerminal
 --
 -- FUNCTIONS:
 --      explicit Physical(QObject *parent = nullptr);
