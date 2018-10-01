@@ -7,7 +7,8 @@
 #include "physical.h"
 #include "session.h"
 
-namespace Ui {
+namespace Ui
+{
 class ConfigDialog;
 }
 
@@ -15,21 +16,20 @@ class ConfigDialog : public QDialog
 {
     Q_OBJECT
 
-public:
-    explicit ConfigDialog(QWidget *parent = nullptr, Physical *physicalLayer = nullptr, Session *sessionLayer = nullptr, QSerialPort *serialPort= nullptr);
+  public:
+    explicit ConfigDialog(QWidget *parent = nullptr, Physical *physicalLayer = nullptr, Session *sessionLayer = nullptr, QSerialPort *serialPort = nullptr);
     ~ConfigDialog();
 
-private slots:
+  private slots:
     void on_buttonBox_accepted();
 
-private:
+  private:
     Ui::ConfigDialog *ui;
     QDialog *configDialog;
 
     Physical *physicalLayer;
     Session *sessionLayer;
     QSerialPort *serialPort;
-
 };
 
 #endif // CONFIGDIALOG_H

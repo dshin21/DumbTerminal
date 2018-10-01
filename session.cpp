@@ -1,12 +1,7 @@
 #include "session.h"
 
-
 Session::Session(QObject *parent, Physical *physicalLayer)
-    : QObject(parent),
-      physicalLayer(physicalLayer)
-{
-
-}
+    : QObject(parent), physicalLayer(physicalLayer) {}
 
 void Session::connectSerialPort(QSerialPort *serialPort)
 {
@@ -26,4 +21,9 @@ void Session::modifySerialPort(QString baudRate, QString dataBits, QString parit
 QByteArray Session::readFromSerialPort(QSerialPort *serialPort)
 {
     return physicalLayer->readFromSerialPort(serialPort);
+}
+
+void Session::writeToSerialPort(const QByteArray &data, QSerialPort *serialPort)
+{
+    physicalLayer->writeToSerialPort(data, serialPort);
 }

@@ -5,11 +5,10 @@
 #include <physical.h>
 #include <QDebug>
 
-
-
 class Session;
 
-namespace Ui {
+namespace Ui
+{
 class Application;
 }
 
@@ -17,16 +16,16 @@ class Application : public QMainWindow
 {
     Q_OBJECT
 
-public:
+  public:
     explicit Application(QWidget *parent = nullptr);
     ~Application();
 
     void keyPressEvent(QKeyEvent *e);
 
-signals:
+  signals:
     void getData(const QByteArray &data);
 
-private:
+  private:
     Ui::Application *ui;
     Session *sessionLayer;
     Physical *physicalLayer;
@@ -34,16 +33,10 @@ private:
 
     void initializeUIConnections();
 
-private slots:
+  private slots:
     void onClickConnect();
     void onClickDisconnect();
     void onClickModify();
     void readFromSerialPort();
-    void writeToSerialPort(const QByteArray &data);
-
-
-
-private slots:
-
     void on_console_textChanged(const QString &arg1);
 };

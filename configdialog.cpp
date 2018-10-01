@@ -1,13 +1,8 @@
 #include "configdialog.h"
 #include "ui_configdialog.h"
 
-ConfigDialog::ConfigDialog(QWidget *parent, Physical *physicalLayer, Session *sessionLayer, QSerialPort *serialPort) :
-    QDialog(parent),
-    ui(new Ui::ConfigDialog),
-    physicalLayer(physicalLayer),
-    sessionLayer(sessionLayer),
-    serialPort(serialPort)
-
+ConfigDialog::ConfigDialog(QWidget *parent, Physical *physicalLayer, Session *sessionLayer, QSerialPort *serialPort) 
+: QDialog(parent), ui(new Ui::ConfigDialog), physicalLayer(physicalLayer), sessionLayer(sessionLayer), serialPort(serialPort)
 {
     ui->setupUi(this);
 }

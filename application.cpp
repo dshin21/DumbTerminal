@@ -2,19 +2,15 @@
 #include "ui_application.h"
 #include "configdialog.h"
 
-Application::Application(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::Application),
-    serialPort(new QSerialPort("COM1", this))
+Application::Application(QWidget *parent)
+: QMainWindow(parent), ui(new Ui::Application), serialPort(new QSerialPort("COM1", this))
 {
     ui->setupUi(this);
-//    setCentralWidget(ui->console);
     initializeUIConnections();
 
     sessionLayer = new Session;
     physicalLayer = new Physical;
 }
-
 
 Application::~Application()
 {
@@ -26,8 +22,7 @@ void Application::initializeUIConnections()
     connect(ui->actionConnect, &QAction::triggered, this, &Application::onClickConnect);        //Connect Menu
     connect(ui->actionDisconnect, &QAction::triggered, this, &Application::onClickDisconnect);  //Disconnect Menu
     connect(ui->actionModify_Settings, &QAction::triggered, this, &Application::onClickModify); //Modify Settings Menu
-    connect(serialPort, &QSerialPort::readyRead, this, &Application::readFromSerialPort);
-
+    connect(serialPort, &QSerialPort::readyRead, this, &Application::readFromSerialPort);       //read from serial port
 }
 
 void Application::onClickConnect()
@@ -47,23 +42,17 @@ void Application::onClickModify()
     configDialog.exec();
 }
 
-void Application::readFromSerialPort(){
-    QString previousText = ui->incomingConsole->text().append(sessionLayer->readFromSerialPort(serialPort));
-
-    ui->incomingConsole->setText(QString(previousText));
-
-}
-
-void Application::writeToSerialPort(const QByteArray &data)
+void Application::readFromSerialPort()
 {
-    serialPort->write(data); 
-    qDebug() << "wrote";
+    QString previousText = ui->incomingConsole->text().append(sessionLayer->readFromSerialPort(serialPort));
+    ui->incomingConsole->setText(QString(previousText));
 }
 
 void Application::keyPressEvent(QKeyEvent *e)
 {
     qDebug() << e;
-    switch (e->key()) {
+    switch (e->key())
+    {
     case Qt::Key_Backspace:
     case Qt::Key_Left:
     case Qt::Key_Right:
@@ -75,10 +64,8 @@ void Application::keyPressEvent(QKeyEvent *e)
     }
 }
 
-
-
-void Application::on_console_textChanged(const QString &arg1)
+void Application::on_console_textChanged(const QString &text)
 {
-    QString data = arg1.at(arg1.size()-1);
-    serialPort->write(data.toLocal8Bit());
+    QString data = text.at(text.size() - 1);
+    sessionLayer->writeToSerialPort(data.toLocal8Bit(),serialPort);
 }
