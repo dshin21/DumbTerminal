@@ -26,14 +26,12 @@ SOURCES += \
         main.cpp \
         application.cpp \
     physical.cpp \
-    session.cpp \
     configdialog.cpp \
 
 
 HEADERS += \
         application.h \
     physical.h \
-    session.h \
     configdialog.h \
 
 

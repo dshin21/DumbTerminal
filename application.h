@@ -1,7 +1,6 @@
 #pragma once
 
 #include <QMainWindow>
-#include <session.h>
 #include <physical.h>
 #include <QDebug>
 
@@ -27,7 +26,6 @@ class Application : public QMainWindow
 
   private:
     Ui::Application *ui;
-    Session *sessionLayer;
     Physical *physicalLayer;
     QSerialPort *serialPort;
 

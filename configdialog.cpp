@@ -1,8 +1,8 @@
 #include "configdialog.h"
 #include "ui_configdialog.h"
 
-ConfigDialog::ConfigDialog(QWidget *parent, Physical *physicalLayer, Session *sessionLayer, QSerialPort *serialPort) 
-: QDialog(parent), ui(new Ui::ConfigDialog), physicalLayer(physicalLayer), sessionLayer(sessionLayer), serialPort(serialPort)
+ConfigDialog::ConfigDialog(QWidget *parent, Physical *physicalLayer, QSerialPort *serialPort)
+: QDialog(parent), ui(new Ui::ConfigDialog), physicalLayer(physicalLayer), serialPort(serialPort)
 {
     ui->setupUi(this);
 }
@@ -20,5 +20,5 @@ void ConfigDialog::on_buttonBox_accepted()
     QString stopBits = ui->comboBoxStopBits->currentText();
     QString portName = ui->comboBoxPortName->currentText();
 
-    sessionLayer->modifySerialPort(baudRate, dataBits, parity, stopBits, portName, serialPort);
+    physicalLayer->modifySerialPort(baudRate, dataBits, parity, stopBits, portName, serialPort);
 }

@@ -7,8 +7,6 @@ Application::Application(QWidget *parent)
 {
     ui->setupUi(this);
     initializeUIConnections();
-
-    sessionLayer = new Session;
     physicalLayer = new Physical;
 }
 
@@ -27,24 +25,24 @@ void Application::initializeUIConnections()
 
 void Application::onClickConnect()
 {
-    sessionLayer->connectSerialPort(serialPort);
+    physicalLayer->initializeSerialPort(serialPort);
 }
 
 void Application::onClickDisconnect()
 {
-    sessionLayer->disconnectSerialPort(serialPort);
+    physicalLayer->deInitializeSerialPort(serialPort);
 }
 
 void Application::onClickModify()
 {
-    ConfigDialog configDialog(nullptr, physicalLayer, sessionLayer, serialPort);
+    ConfigDialog configDialog(nullptr, physicalLayer, serialPort);
     configDialog.setModal(true);
     configDialog.exec();
 }
 
 void Application::readFromSerialPort()
 {
-    QString previousText = ui->incomingConsole->text().append(sessionLayer->readFromSerialPort(serialPort));
+    QString previousText = ui->incomingConsole->text().append(physicalLayer->readFromSerialPort(serialPort));
     ui->incomingConsole->setText(QString(previousText));
 }
 
@@ -67,5 +65,5 @@ void Application::keyPressEvent(QKeyEvent *e)
 void Application::on_console_textChanged(const QString &text)
 {
     QString data = text.at(text.size() - 1);
-    sessionLayer->writeToSerialPort(data.toLocal8Bit(),serialPort);
+    physicalLayer->writeToSerialPort(data.toLocal8Bit(),serialPort);
 }

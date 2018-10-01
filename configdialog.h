@@ -5,7 +5,6 @@
 #include <qtabwidget.h>
 
 #include "physical.h"
-#include "session.h"
 
 namespace Ui
 {
@@ -17,7 +16,7 @@ class ConfigDialog : public QDialog
     Q_OBJECT
 
   public:
-    explicit ConfigDialog(QWidget *parent = nullptr, Physical *physicalLayer = nullptr, Session *sessionLayer = nullptr, QSerialPort *serialPort = nullptr);
+    explicit ConfigDialog(QWidget *parent = nullptr, Physical *physicalLayer = nullptr, QSerialPort *serialPort = nullptr);
     ~ConfigDialog();
 
   private slots:
@@ -28,7 +27,6 @@ class ConfigDialog : public QDialog
     QDialog *configDialog;
 
     Physical *physicalLayer;
-    Session *sessionLayer;
     QSerialPort *serialPort;
 };
 
