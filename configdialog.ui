@@ -263,19 +263,6 @@
       </item>
      </widget>
     </widget>
-    <widget class="QPushButton" name="pushButtonRestoreDefaults">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>270</y>
-       <width>101</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Restore Defaults</string>
-     </property>
-    </widget>
    </widget>
   </widget>
  </widget>

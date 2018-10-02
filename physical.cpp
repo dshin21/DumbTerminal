@@ -70,12 +70,11 @@ bool Physical::initializeSerialPort(QSerialPort *serialPort)
             qDebug() << "Port opened";
             return true;
         }
-        else
-        {
-            qDebug() << "Port already opened";
-            return false;
-        }
+
     }
+
+    qDebug() << "Port already opened";
+
     return false;
 }
 
@@ -144,6 +143,13 @@ void Physical::modifySerialPort(const QString &baudRate, const QString &dataBits
     modifySerialPortParity(parity, serialPort);
     modifySerialPortStopBits(stopBits, serialPort);
     modifySerialPortPortName(portName, serialPort);
+
+    qDebug() << "Set to: ";
+    qDebug() << "Bit Rate: " <<serialPort->baudRate();
+    qDebug() << "Data Bits: " <<serialPort->dataBits();
+    qDebug() << "Parity: " <<serialPort->parity();
+    qDebug() << "Stop Bits: " <<serialPort->stopBits();
+    qDebug() << "Port Name: " <<serialPort->portName();
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -290,7 +296,6 @@ void Physical::modifySerialPortStopBits(const QString &stopBits, QSerialPort *se
     {
         serialPort->setStopBits(QSerialPort::TwoStop);
     }
-    qDebug() << serialPort->stopBits();
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -314,7 +319,6 @@ void Physical::modifySerialPortStopBits(const QString &stopBits, QSerialPort *se
 void Physical::modifySerialPortPortName(const QString &portName, QSerialPort *serialPort)
 {
     serialPort->setPortName(portName);
-    qDebug() << serialPort->portName();
 }
 
 /*------------------------------------------------------------------------------------------------------------------
