@@ -100,6 +100,7 @@ bool Physical::initializeSerialPort(QSerialPort *serialPort)
 --
 -- NOTES:
 -- This function is used to deinitialize the serial port.
+-- It ensures that the port is open and only then, it flushes and closes the serial port.
 ----------------------------------------------------------------------------------------------------------------------*/
 bool Physical::deInitializeSerialPort(QSerialPort *serialPort)
 {
@@ -138,7 +139,10 @@ bool Physical::deInitializeSerialPort(QSerialPort *serialPort)
 -- RETURNS: void
 --
 -- NOTES:
--- This function is used to modify the settings of the serial port.
+-- This function is used to modify the settings of the serial port such as:
+-- the baud rate, data bits, parity bits, stop bits, and port name.
+-- Also, upon modifying the serial port settings, it sets the modified variable to true to ensure the connection does not
+-- reset to default settings.
 ----------------------------------------------------------------------------------------------------------------------*/
 void Physical::modifySerialPort(const QString &baudRate, const QString &dataBits, const QString &parity, const QString &stopBits, const QString &portName, QSerialPort *serialPort)
 {

@@ -100,6 +100,7 @@ void Session::initializeUIConnections()
 --
 -- NOTES:
 -- This function is used to trigger the initialization of the serial port on clicking the "Connect" menu item.
+-- Also, it sets the status bar to indicate that it is in Connect Mode upon successful connection.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::onClickConnect()
@@ -127,6 +128,7 @@ void Session::onClickConnect()
 --
 -- NOTES:
 -- This function is used to trigger the deinitialization of the serial port on clicking the "Disconnect" menu item.
+-- Also, it sets the status bar to indicate that it is in Command Mode upon successful disconnection.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::onClickDisconnect()
@@ -154,6 +156,8 @@ void Session::onClickDisconnect()
 --
 -- NOTES:
 -- This function is used to trigger the configuration settings of the serial port on clicking the "Modify Settings" menu item.
+-- Also, it sets the status bar to indicate that it is in Command Mode upon successful modification since the modification
+-- initially disconnects the serial port.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::onClickModify()
@@ -183,7 +187,7 @@ void Session::onClickModify()
 -- RETURNS: void
 --
 -- NOTES:
--- This function is used to monitor the serial port and displays the incoming text to the incoming QLineEdit.
+-- This function is used to monitor the serial port and displays the incoming text to the INCOMING QLineEdit.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::readFromSerialPort()
@@ -208,7 +212,8 @@ void Session::readFromSerialPort()
 -- RETURNS: void
 --
 -- NOTES:
--- This function is used to monitor the sending QLineEdit and sends to the serial port.
+-- This function is used to monitor the SENDING QLineEdit and sends it to the serial port as a 8 bit QByteArray and passes
+-- to the physical layer for it to send to the serial port.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::on_console_textChanged(const QString &text)
@@ -234,6 +239,7 @@ void Session::on_console_textChanged(const QString &text)
 --
 -- NOTES:
 -- This function is used to listen to the keypresses and emit a signal to be handled by the event handler.
+-- Upon receiving <ESC> keyboard input, it returns to the Command Mode and sets the status bar accordingly.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::keyPressEvent(QKeyEvent *e)
@@ -275,7 +281,7 @@ void Session::keyPressEvent(QKeyEvent *e)
 -- RETURNS: void
 --
 -- NOTES:
--- This function is used to change the status message to indicate the mode (state) of the emulator.
+-- This function is used to change the status message to indicate the mode (state: Command Mode or Connect Mode) of the emulator.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::showStatusMessage(const QString &message)
@@ -284,7 +290,7 @@ void Session::showStatusMessage(const QString &message)
 }
 
 /*------------------------------------------------------------------------------------------------------------------
--- FUNCTION: showStatusMessage
+-- FUNCTION: onClickHelp
 --
 -- DATE: September 29, 2018
 --
@@ -294,12 +300,12 @@ void Session::showStatusMessage(const QString &message)
 --
 -- PROGRAMMER: Daniel Shin
 --
--- INTERFACE: void showStatusMessage(const QString &message)
+-- INTERFACE: void onClickHelp()
 --
 -- RETURNS: void
 --
 -- NOTES:
--- This function is used to change the status message to indicate the mode (state) of the emulator.
+-- This function is used to open the help dialog when the user clicks on the "Help" menu option
 ----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::onClickHelp()
