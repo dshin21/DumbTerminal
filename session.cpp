@@ -108,14 +108,6 @@ void Session::onClickConnect()
         status->setStyleSheet("QLabel { background-color : green; color : blue; }");
         showStatusMessage("Connect Mode (ESC to return to Command Mode)");
     }
-
-    qDebug() << "Bit Rate: " <<serialPort->baudRate();
-    qDebug() << "Data Bits: " <<serialPort->dataBits();
-    qDebug() << "Parity: " <<serialPort->parity();
-    qDebug() << "Stop Bits: " <<serialPort->stopBits();
-    qDebug() << "Port Name: " <<serialPort->portName();
-    qDebug() << "Port already opened";
-
 }
 
 /*------------------------------------------------------------------------------------------------------------------

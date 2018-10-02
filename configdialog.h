@@ -3,7 +3,7 @@
 
 #include <QDialog>
 #include <qtabwidget.h>
-
+#include "session.h"
 #include "physical.h"
 
 namespace Ui

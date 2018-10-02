@@ -18,6 +18,8 @@ class Physical : public QObject
     QString stopBits;
     QString portName;
 
+    bool modified = false;
+
   public slots:
     bool initializeSerialPort(QSerialPort *serialPort);
     bool deInitializeSerialPort(QSerialPort *serialPort);

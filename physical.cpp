@@ -53,14 +53,15 @@ Physical::Physical(QObject *parent) : QObject(parent) {}
 --
 -- NOTES:
 -- This function is used to initialize the serial port and sets the default serial port parameters if the user decides to
--- connect without modifying the serial port properties.
+-- connect without modifying the serial port properties. If the modified variable is set to true, which means the user has
+-- modified to custom settings, then it initializes the port without setting default parameters.
 ----------------------------------------------------------------------------------------------------------------------*/
 bool Physical::initializeSerialPort(QSerialPort *serialPort)
 {
     if (serialPort && !serialPort->isOpen())
     {
         serialPort->open(QIODevice::ReadWrite);
-        if (serialPort->isOpen())
+        if (serialPort->isOpen() && !modified)
         {
             serialPort->setPortName("COM1");
             serialPort->setBaudRate(QSerialPort::Baud2400);
@@ -70,6 +71,10 @@ bool Physical::initializeSerialPort(QSerialPort *serialPort)
             serialPort->setFlowControl(QSerialPort::HardwareControl);
             serialPort->open(QIODevice::ReadWrite);
             qDebug() << "Port opened";
+
+            return true;
+        }else{
+            serialPort->open(QIODevice::ReadWrite);
 
             return true;
         }
@@ -143,6 +148,7 @@ void Physical::modifySerialPort(const QString &baudRate, const QString &dataBits
     modifySerialPortParity(parity, serialPort);
     modifySerialPortStopBits(stopBits, serialPort);
     modifySerialPortPortName(portName, serialPort);
+    modified = true;
 
     qDebug() << "Set to: ";
     qDebug() << "Bit Rate: " <<serialPort->baudRate();
