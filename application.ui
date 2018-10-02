@@ -108,6 +108,7 @@ background-color: rgb(85, 255, 255);</string>
     <addaction name="actionConnect"/>
     <addaction name="actionDisconnect"/>
     <addaction name="actionModify_Settings"/>
+    <addaction name="actionHelp"/>
     <addaction name="actionExit"/>
    </widget>
    <addaction name="menuOptions"/>
@@ -131,6 +132,11 @@ background-color: rgb(85, 255, 255);</string>
   <action name="actionExit">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionHelp">
+   <property name="text">
+    <string>Help</string>
    </property>
   </action>
  </widget>

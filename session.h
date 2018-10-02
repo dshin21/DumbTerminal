@@ -1,5 +1,7 @@
 #pragma once
 
+#include "helpdialog.h"
+
 #include <QMainWindow>
 #include <physical.h>
 #include <QDebug>
@@ -37,6 +39,7 @@ class Session : public QMainWindow
     void onClickConnect();
     void onClickDisconnect();
     void onClickModify();
+    void onClickHelp();
     void readFromSerialPort();
     void on_console_textChanged(const QString &arg1);
 };

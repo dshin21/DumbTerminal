@@ -72,6 +72,7 @@ void Session::initializeUIConnections()
     connect(ui->actionDisconnect, &QAction::triggered, this, &Session::onClickDisconnect);  //Disconnect Menu
     connect(ui->actionModify_Settings, &QAction::triggered, this, &Session::onClickModify); //Modify Settings Menu
     connect(serialPort, &QSerialPort::readyRead, this, &Session::readFromSerialPort);       //read from serial port
+    connect(ui->actionHelp, &QAction::triggered, this, &Session::onClickHelp);
     ui->statusBar->addWidget(status);
     showStatusMessage("Command Mode (Modify port settings)");
     status->setStyleSheet("QLabel { background-color : red; color : blue; }");
@@ -272,4 +273,11 @@ void Session::keyPressEvent(QKeyEvent *e)
 void Session::showStatusMessage(const QString &message)
 {
     status->setText(message);
+}
+
+void Session::onClickHelp()
+{
+    HelpDialog helpDialog;
+    helpDialog.setModal(true);
+    helpDialog.exec();
 }
