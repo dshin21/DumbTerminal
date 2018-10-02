@@ -1,5 +1,6 @@
 /*------------------------------------------------------------------------------------------------------------------
--- SOURCE FILE: session.cpp - An application that displays two text windows used for the Dumb Terminal Emulator.
+-- SOURCE FILE: session.cpp - An application that displays two text windows (INCOMING & SENDING) and UI components
+--                            used for the Dumb Terminal Emulator.
 --
 -- PROGRAM: DumbTerminal
 --
@@ -13,6 +14,8 @@
 --      void readFromSerialPort();
 --      void on_console_textChanged(const QString &arg1);
 --      void keyPressEvent(QKeyEvent *e);
+--      void showStatusMessage(const QString &message);
+--      void onClickHelp();
 --
 --
 -- DATE: September 29, 2018
@@ -25,9 +28,11 @@
 --
 -- NOTES:
 -- This program displays two text windows, one for sending text to the serial port and one for receiving incoming text from
--- the serial port. It listens to keypress events from the sending QLineEdit and interacts with the Phyiscal layer to transmit
--- the text to the serial port. Furthermore, it simultaneously listens to the serial port for any incoming data and write to
--- the incoming QLineEdit on the console.
+-- the serial port.
+-- It listens to keypress events from the SENDING QLineEdit and interacts with the Phyiscal layer to transmit the text to 
+-- the serial port. Furthermore, it simultaneously receives the charcters from the serial port processed by the physical layer
+-- and displays them on to the INCOMING QLineEdit.
+-- The session layer is also responsible for the UI components of Qt such as the menu items (QMenu) and the status bar (QLabel).
 ----------------------------------------------------------------------------------------------------------------------*/
 
 #include "session.h"
@@ -104,6 +109,13 @@ void Session::onClickConnect()
         showStatusMessage("Connect Mode (ESC to return to Command Mode)");
     }
 
+    qDebug() << "Bit Rate: " <<serialPort->baudRate();
+    qDebug() << "Data Bits: " <<serialPort->dataBits();
+    qDebug() << "Parity: " <<serialPort->parity();
+    qDebug() << "Stop Bits: " <<serialPort->stopBits();
+    qDebug() << "Port Name: " <<serialPort->portName();
+    qDebug() << "Port already opened";
+
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -157,6 +169,10 @@ void Session::onClickModify()
     ConfigDialog configDialog(nullptr, physicalLayer, serialPort);
     configDialog.setModal(true);
     configDialog.exec();
+    if(status->text() == "Connect Mode (ESC to return to Command Mode)"){
+        showStatusMessage("Command Mode (Modify port settings)");
+        status->setStyleSheet("QLabel { background-color : red; color : blue; }");
+    }
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -274,6 +290,25 @@ void Session::showStatusMessage(const QString &message)
 {
     status->setText(message);
 }
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: showStatusMessage
+--
+-- DATE: September 29, 2018
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Daniel Shin
+--
+-- PROGRAMMER: Daniel Shin
+--
+-- INTERFACE: void showStatusMessage(const QString &message)
+--
+-- RETURNS: void
+--
+-- NOTES:
+-- This function is used to change the status message to indicate the mode (state) of the emulator.
+----------------------------------------------------------------------------------------------------------------------*/
 
 void Session::onClickHelp()
 {

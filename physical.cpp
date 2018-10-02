@@ -1,13 +1,15 @@
 /*------------------------------------------------------------------------------------------------------------------
--- SOURCE FILE: physical.cpp - An application that provides essential functions dealing with the serial port.
+-- SOURCE FILE: physical.cpp - An application that provides essential functions using the serial port to
+--                             transmit & receive data.
 --
 -- PROGRAM: DumbTerminal
 --
 -- FUNCTIONS:
 --      explicit Physical(QObject *parent = nullptr);
---		void initializeSerialPort(QSerialPort *serialPort);
---		void deInitializeSerialPort(QSerialPort *serialPort);
---		void modifySerialPort(const QString &baudRate, const QString &dataBits, const QString &parity, const QString &stopBits, const QString &portName, QSerialPort *serialPort);
+--		bool initializeSerialPort(QSerialPort *serialPort);
+--		bool deInitializeSerialPort(QSerialPort *serialPort);
+--		void modifySerialPort(const QString &baudRate, const QString &dataBits, const QString &parity, const QString &stopBits, 
+--                            const QString &portName, QSerialPort *serialPort);
 --      void modifySerialPortBaudRate(const QString &baudRate, QSerialPort *serialPort);
 --      void modifySerialPortDataBits(const QString &dataBits, QSerialPort *serialPort);
 --      void modifySerialPortParity(const QString &parity, QSerialPort *serialPort);
@@ -26,8 +28,7 @@
 -- PROGRAMMER: Daniel Shin
 --
 -- NOTES:
--- This program displays and reads in the characters that are sent over the serial connection. It handles keystrokes
--- and shows incoming characters.
+-- This file contains helper functions that directly interacts with the serial port for the session layer to utilize.
 ----------------------------------------------------------------------------------------------------------------------*/
 
 #include "physical.h"
@@ -51,7 +52,8 @@ Physical::Physical(QObject *parent) : QObject(parent) {}
 -- RETURNS: bool, returns true if the port is successfully initialized, false otherwise.
 --
 -- NOTES:
--- This function is used to initialize the serial port and sets the default serial port parameters.
+-- This function is used to initialize the serial port and sets the default serial port parameters if the user decides to
+-- connect without modifying the serial port properties.
 ----------------------------------------------------------------------------------------------------------------------*/
 bool Physical::initializeSerialPort(QSerialPort *serialPort)
 {
@@ -68,12 +70,10 @@ bool Physical::initializeSerialPort(QSerialPort *serialPort)
             serialPort->setFlowControl(QSerialPort::HardwareControl);
             serialPort->open(QIODevice::ReadWrite);
             qDebug() << "Port opened";
+
             return true;
         }
-
     }
-
-    qDebug() << "Port already opened";
 
     return false;
 }
