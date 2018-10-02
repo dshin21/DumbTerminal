@@ -19,8 +19,8 @@ class Physical : public QObject
     QString portName;
 
   public slots:
-    void initializeSerialPort(QSerialPort *serialPort);
-    void deInitializeSerialPort(QSerialPort *serialPort);
+    bool initializeSerialPort(QSerialPort *serialPort);
+    bool deInitializeSerialPort(QSerialPort *serialPort);
     void modifySerialPort(const QString &baudRate, const QString &dataBits, const QString &parity, const QString &stopBits, const QString &portName, QSerialPort *serialPort);
     void modifySerialPortBaudRate(const QString &baudRate, QSerialPort *serialPort);
     void modifySerialPortDataBits(const QString &dataBits, QSerialPort *serialPort);

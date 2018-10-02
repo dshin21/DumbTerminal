@@ -89,6 +89,16 @@
         <string>1200</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>4800</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>9600</string>
+       </property>
+      </item>
      </widget>
      <widget class="QLabel" name="labelDataBits">
       <property name="geometry">

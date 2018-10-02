@@ -35,7 +35,7 @@
 #include "configdialog.h"
 
 Session::Session(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::Application), serialPort(new QSerialPort("COM1", this))
+    : QMainWindow(parent), ui(new Ui::Application), serialPort(new QSerialPort("COM1", this)), status(new QLabel)
 {
     ui->setupUi(this);
     initializeUIConnections();
@@ -72,6 +72,9 @@ void Session::initializeUIConnections()
     connect(ui->actionDisconnect, &QAction::triggered, this, &Session::onClickDisconnect);  //Disconnect Menu
     connect(ui->actionModify_Settings, &QAction::triggered, this, &Session::onClickModify); //Modify Settings Menu
     connect(serialPort, &QSerialPort::readyRead, this, &Session::readFromSerialPort);       //read from serial port
+    ui->statusBar->addWidget(status);
+    showStatusMessage("Command Mode (Modify port settings)");
+    status->setStyleSheet("QLabel { background-color : red; color : blue; }");
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -95,7 +98,11 @@ void Session::initializeUIConnections()
 
 void Session::onClickConnect()
 {
-    physicalLayer->initializeSerialPort(serialPort);
+    if(physicalLayer->initializeSerialPort(serialPort)){
+        status->setStyleSheet("QLabel { background-color : green; color : blue; }");
+        showStatusMessage("Connect Mode (ESC to return to Command Mode)");
+    }
+
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -119,7 +126,10 @@ void Session::onClickConnect()
 
 void Session::onClickDisconnect()
 {
-    physicalLayer->deInitializeSerialPort(serialPort);
+    if(physicalLayer->deInitializeSerialPort(serialPort)){
+        showStatusMessage("Command Mode (Modify port settings)");
+        status->setStyleSheet("QLabel { background-color : red; color : blue; }");
+    }
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -228,7 +238,38 @@ void Session::keyPressEvent(QKeyEvent *e)
     case Qt::Key_Up:
     case Qt::Key_Down:
         break;
+    case Qt::Key_Escape:
+        if(status->text() == "Connect Mode (ESC to return to Command Mode)"){
+            physicalLayer->deInitializeSerialPort(serialPort);
+            showStatusMessage("Command Mode (Modify port settings)");
+            status->setStyleSheet("QLabel { background-color : red; color : blue; }");
+        }
+        break;
     default:
         emit getData(e->text().toLocal8Bit());
     }
+}
+
+/*------------------------------------------------------------------------------------------------------------------
+-- FUNCTION: showStatusMessage
+--
+-- DATE: September 29, 2018
+--
+-- REVISIONS: None
+--
+-- DESIGNER: Daniel Shin
+--
+-- PROGRAMMER: Daniel Shin
+--
+-- INTERFACE: void showStatusMessage(const QString &message)
+--
+-- RETURNS: void
+--
+-- NOTES:
+-- This function is used to change the status message to indicate the mode (state) of the emulator.
+----------------------------------------------------------------------------------------------------------------------*/
+
+void Session::showStatusMessage(const QString &message)
+{
+    status->setText(message);
 }

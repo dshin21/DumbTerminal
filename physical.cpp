@@ -48,12 +48,12 @@ Physical::Physical(QObject *parent) : QObject(parent) {}
 --
 -- INTERFACE: void initializeSerialPort(QSerialPort *serialPort)
 --
--- RETURNS: void
+-- RETURNS: bool, returns true if the port is successfully initialized, false otherwise.
 --
 -- NOTES:
 -- This function is used to initialize the serial port and sets the default serial port parameters.
 ----------------------------------------------------------------------------------------------------------------------*/
-void Physical::initializeSerialPort(QSerialPort *serialPort)
+bool Physical::initializeSerialPort(QSerialPort *serialPort)
 {
     if (serialPort && !serialPort->isOpen())
     {
@@ -67,12 +67,16 @@ void Physical::initializeSerialPort(QSerialPort *serialPort)
             serialPort->setStopBits(QSerialPort::OneStop);
             serialPort->setFlowControl(QSerialPort::HardwareControl);
             serialPort->open(QIODevice::ReadWrite);
+            qDebug() << "Port opened";
+            return true;
         }
         else
         {
-            qDebug() << "Error";
+            qDebug() << "Port already opened";
+            return false;
         }
     }
+    return false;
 }
 
 /*------------------------------------------------------------------------------------------------------------------
@@ -88,21 +92,24 @@ void Physical::initializeSerialPort(QSerialPort *serialPort)
 --
 -- INTERFACE: void deInitializeSerialPort(QSerialPort *serialPort)
 --
--- RETURNS: void
+-- RETURNS: bool, returns true if the port is successfully disconnected, otherwise false.
 --
 -- NOTES:
 -- This function is used to deinitialize the serial port.
 ----------------------------------------------------------------------------------------------------------------------*/
-void Physical::deInitializeSerialPort(QSerialPort *serialPort)
+bool Physical::deInitializeSerialPort(QSerialPort *serialPort)
 {
     if (serialPort->isOpen())
     {
         serialPort->flush();
         serialPort->close();
+        qDebug() << "Port closed";
+        return true;
     }
     else
     {
-        qDebug() << "Error";
+        qDebug() << "Port is not open";
+        return false;
     }
 }
 
@@ -166,6 +173,12 @@ void Physical::modifySerialPortBaudRate(const QString &baudRate, QSerialPort *se
         break;
     case 2400:
         serialPort->setBaudRate(QSerialPort::Baud2400);
+        break;
+    case 4800:
+        serialPort->setBaudRate(QSerialPort::Baud4800);
+        break;
+    case 9600:
+        serialPort->setBaudRate(QSerialPort::Baud9600);
         break;
     default:
         break;

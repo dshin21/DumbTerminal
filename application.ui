@@ -108,6 +108,7 @@ background-color: rgb(85, 255, 255);</string>
     <addaction name="actionConnect"/>
     <addaction name="actionDisconnect"/>
     <addaction name="actionModify_Settings"/>
+    <addaction name="actionExit"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
@@ -127,8 +128,30 @@ background-color: rgb(85, 255, 255);</string>
     <string>Modify Settings</string>
    </property>
   </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>Application</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>455</x>
+     <y>247</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

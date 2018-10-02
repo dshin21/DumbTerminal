@@ -3,6 +3,7 @@
 #include <QMainWindow>
 #include <physical.h>
 #include <QDebug>
+#include <QLabel>
 
 class Session;
 
@@ -28,8 +29,9 @@ class Session : public QMainWindow
     Ui::Application *ui;
     Physical *physicalLayer;
     QSerialPort *serialPort;
-
+    QLabel *status = nullptr;
     void initializeUIConnections();
+    void showStatusMessage(const QString &message);
 
   private slots:
     void onClickConnect();
